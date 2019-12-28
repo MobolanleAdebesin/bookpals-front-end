@@ -52,7 +52,7 @@ class AddBook extends Component {
     })
       .then(res => {
         console.log(res);
-        this.redirectToTarget();
+        this.redirectToTarget("/");
       })
       .catch(err => console.log(err));
   };
