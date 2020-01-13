@@ -119,6 +119,7 @@ class Slider extends Component {
             >
               Delete
             </button>
+            <button className="btn btn-dark slider-buttons">TasteKid</button>
           </div>
         </div>
       );
