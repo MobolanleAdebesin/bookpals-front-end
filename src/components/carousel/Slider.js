@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Slide from "./Slide.js";
 import LeftArrow from "./LeftArrow.js";
 import RightArrow from "./RightArrow.js";
@@ -51,6 +52,20 @@ class Slider extends Component {
   showInfo = () => {
     this.props.getIndex(this.state.currentIndex);
     this.props.changeInfo();
+  };
+  getSuggestions = () => {
+    // let bookTitle = this.props.allBooks[this.state.currentIndex].title;
+    // let splitTitle = bookTitle.split(" ");
+    // console.log(splitTitle[0]);
+    let bookIsbn = this.props.allBooks[this.state.currentIndex].isbns[0].isbn13;
+    console.log(bookIsbn);
+    axios
+      .get(
+        ` https://www.goodreads.com/book/isbn/${bookIsbn}?key=454RCMVosu5JrBhf6pCtxw`
+      )
+      .then(res => {
+        console.log(res);
+      });
   };
   render() {
     if (this.state.info === "hide") {
@@ -119,7 +134,12 @@ class Slider extends Component {
             >
               Delete
             </button>
-            <button className="btn btn-dark slider-buttons">TasteKid</button>
+            <button
+              className="btn btn-dark slider-buttons"
+              onClick={this.getSuggestions}
+            >
+              TasteKid
+            </button>
           </div>
         </div>
       );

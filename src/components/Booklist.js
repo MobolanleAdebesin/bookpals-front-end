@@ -27,7 +27,7 @@ class Booklist extends Component {
       .get("https://bola-api.herokuapp.com/books")
       .then(res => {
         let allBooks = res.data;
-        console.log(allBooks[0]);
+
         this.setState({ bookData: allBooks });
       })
       .catch(err => {
@@ -48,7 +48,7 @@ class Booklist extends Component {
 
   getIndex = index => {
     let book = this.state.bookData[index];
-    console.log(book._id);
+
     this.setState({
       title: `${book.title}`,
       desc: `${book.description}`,
@@ -77,7 +77,6 @@ class Booklist extends Component {
   };
 
   render() {
-    console.log(this.state.bookData);
     if (this.state.show) {
       return (
         <div className="booklist">
