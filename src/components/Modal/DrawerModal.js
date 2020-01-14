@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
+import "./DrawerModal.css";
 
 const useStyles = makeStyles({
   list: {
@@ -38,15 +39,14 @@ export default function TemporaryDrawer(props) {
         onClick={toggleDrawer(side, false)}
         onKeyDown={toggleDrawer(side, false)}
       >
-        <ul>
-          {suggestions.map((suggestion, i) => {
-            return (
-              <li key={i}>
-                {suggestion.Name} - {suggestion.Type}
-              </li>
-            );
-          })}
-        </ul>
+        {suggestions.map((suggestion, i) => {
+          return (
+            <div key={i} className="DrawerModal-suggestion-card">
+              {suggestion.Name} - {suggestion.Type}
+              <a href={`\n ${suggestion.yUrl} `}>{suggestion.yUrl}</a>
+            </div>
+          );
+        })}
       </div>
     );
     return (
@@ -71,7 +71,9 @@ export default function TemporaryDrawer(props) {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
-    ></div>
+    >
+      No Suggestions
+    </div>
   );
   return (
     <div>

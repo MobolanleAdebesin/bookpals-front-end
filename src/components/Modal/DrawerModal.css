@@ -1,0 +1,10 @@
+.DrawerModal-suggestion-card {
+  margin: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 1rem;
+  align-items: center;
+  background-color: #f69f85;
+}

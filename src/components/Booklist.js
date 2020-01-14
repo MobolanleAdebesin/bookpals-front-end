@@ -83,26 +83,22 @@ class Booklist extends Component {
 
   getSuggestions = () => {
     let bookTitle = this.state.bookData[this.state.currentIndex].title;
-    let url = `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
+    let url = `https://tastedive.com/api/similar?verbose=1&q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
     axios.get(url).then(res => {
+      console.log(res.data);
       let suggestions = res.data.Similar.Results;
       this.setState({ suggestions: suggestions });
-      console.log(`This is the url: ${url}`);
-      console.log(bookTitle);
-      console.log(suggestions);
     });
   };
   changeSuggestions = index => {
     let bookTitle = this.state.bookData[index].title;
-    let url = `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
+    let url = `https://tastedive.com/api/similar?verbose=1&q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
     axios
       .get(url)
       .then(res => {
+        console.log(res.data);
         let suggestions = res.data.Similar.Results;
         this.setState({ suggestions: suggestions });
-        console.log(url);
-        console.log(bookTitle);
-        console.log(suggestions);
       })
       .catch(err => {
         console.log(err);
