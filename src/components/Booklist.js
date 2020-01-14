@@ -154,17 +154,6 @@ class Booklist extends Component {
           <div className="Booklist-button-container">
             <DrawerModal suggestions={this.state.suggestions}></DrawerModal>
           </div>
-
-          {/* <div className="Booklist-book-container">
-            {this.state.bookData.map((book, i) => {
-              return (
-                <div className="Booklist-book-card" key={i}>
-                  <h3>{book.title}</h3>
-                  <img src={book.image} alt={book.title} />
-                </div>
-              );
-            })}
-          </div> */}
         </div>
       );
     }
