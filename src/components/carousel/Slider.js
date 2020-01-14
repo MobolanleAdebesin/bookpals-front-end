@@ -11,9 +11,11 @@ class Slider extends Component {
     this.state = {
       currentIndex: 0,
       translateValue: 0,
-      info: "show"
+      info: "show",
+      suggestions: ""
     };
   }
+
   handleDelete = () => {
     let bookId = this.props.allBooks[this.state.currentIndex]._id;
     this.props.delete(bookId);
@@ -52,6 +54,7 @@ class Slider extends Component {
     this.props.getIndex(this.state.currentIndex);
     this.props.changeInfo();
   };
+
   render() {
     if (this.state.info === "hide") {
       return (

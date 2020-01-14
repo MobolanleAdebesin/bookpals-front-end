@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
 import bookImage from "./—Pngtree—open book_5054230.png";
-
 class Home extends Component {
   render() {
     return (

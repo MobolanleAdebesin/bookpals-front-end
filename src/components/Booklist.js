@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./Booklist.css";
 import axios from "axios";
 import Modal from "./Modal/Modal.js";
+import DrawerModal from "./Modal/DrawerModal";
 import Slider from "./carousel/Slider.js";
+import Button from "@material-ui/core/Button";
 
 class Booklist extends Component {
   constructor(props) {
@@ -20,7 +22,8 @@ class Booklist extends Component {
       isbn13: "",
       image: "",
       id: "",
-      info: "hide"
+      info: "hide",
+      suggestions: ""
     };
   }
   componentDidMount() {
@@ -75,6 +78,19 @@ class Booklist extends Component {
     this.setState({ show: false });
   };
 
+  getSuggestions = () => {
+    let bookTitle = this.state.bookData[this.state.currentIndex].title;
+    // console.log(bookTitle);
+    axios
+      .get(
+        `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`
+      )
+      .then(res => {
+        let suggestions = res.data.Similar.Results;
+        this.setState({ suggestions: suggestions });
+      });
+  };
+
   render() {
     if (this.state.show) {
       return (
@@ -102,21 +118,6 @@ class Booklist extends Component {
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
           ></Slider>
-
-          {/* <div className="bookInfo">
-            <h4>Title: {this.state.title}</h4>
-            <h5>Author: {this.state.auth}</h5>
-            <h5 className="Booklist-description">
-              Description: <br />
-              {this.state.desc}
-            </h5>
-            <h5>Publisher: {this.state.pub}</h5>
-            <h5> isbn10: {this.state.isbn10}</h5>
-            <h5>isbn13: {this.state.isbn13}</h5>
-            <button className="btn btn-dark" onClick={this.hideInfo}>
-              Close
-            </button>
-          </div> */}
         </div>
       );
     } else if (!this.state.show) {
@@ -130,6 +131,23 @@ class Booklist extends Component {
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
           ></Slider>
+          <div className="Booklist-button-container">
+            <DrawerModal
+              suggestions={this.state.suggestions}
+              getSuggestions={this.getSuggestions}
+            ></DrawerModal>
+          </div>
+
+          {/* <div className="Booklist-book-container">
+            {this.state.bookData.map((book, i) => {
+              return (
+                <div className="Booklist-book-card" key={i}>
+                  <h3>{book.title}</h3>
+                  <img src={book.image} alt={book.title} />
+                </div>
+              );
+            })}
+          </div> */}
         </div>
       );
     }
