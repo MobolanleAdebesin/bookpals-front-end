@@ -5,14 +5,15 @@ import RightArrow from "./RightArrow.js";
 import "./Slider.css";
 import InfoModal from "../Modal/InfoModal";
 import Button from "@material-ui/core/Button";
+// import axios from "axios";
+// import DrawerModal from "../Modal/DrawerModal";
 class Slider extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentIndex: 0,
       translateValue: 0,
-      info: "show",
-      suggestions: ""
+      info: "show"
     };
   }
 
@@ -33,6 +34,7 @@ class Slider extends Component {
       currentIndex: prevState.currentIndex - 1,
       translateValue: prevState.translateValue + this.slideWidth()
     }));
+    this.props.changeSuggestions(this.state.currentIndex - 1);
   };
   nextSlide = () => {
     if (this.state.currentIndex === this.props.allBooks.length - 1) {
@@ -46,6 +48,7 @@ class Slider extends Component {
       currentIndex: prevState.currentIndex + 1,
       translateValue: prevState.translateValue - this.slideWidth()
     }));
+    this.props.changeSuggestions(this.state.currentIndex + 1);
   };
   slideWidth = () => {
     return document.querySelector(".slide").clientWidth;

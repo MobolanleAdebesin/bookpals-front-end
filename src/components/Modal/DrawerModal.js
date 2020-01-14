@@ -20,9 +20,7 @@ export default function TemporaryDrawer(props) {
     bottom: false,
     right: false
   });
-  let getSuggestions = props.getSuggestions;
   let suggestions = props.suggestions;
-  console.log(suggestions);
   const toggleDrawer = (side, open) => event => {
     if (
       event.type === "keydown" &&
@@ -30,10 +28,9 @@ export default function TemporaryDrawer(props) {
     ) {
       return;
     }
-    getSuggestions();
     setState({ ...state, [side]: open });
   };
-  if (suggestions === true) {
+  if (suggestions) {
     const fullList = side => (
       <div
         className={classes.fullList}
@@ -43,7 +40,11 @@ export default function TemporaryDrawer(props) {
       >
         <ul>
           {suggestions.map((suggestion, i) => {
-            return <li key={i}>{suggestion.Name - suggestion.Type}</li>;
+            return (
+              <li key={i}>
+                {suggestion.Name} - {suggestion.Type}
+              </li>
+            );
           })}
         </ul>
       </div>
@@ -70,9 +71,7 @@ export default function TemporaryDrawer(props) {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
-    >
-      Hello
-    </div>
+    ></div>
   );
   return (
     <div>

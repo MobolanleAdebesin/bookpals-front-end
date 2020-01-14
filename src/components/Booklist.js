@@ -33,6 +33,9 @@ class Booklist extends Component {
         let allBooks = res.data;
         this.setState({ bookData: allBooks });
       })
+      .then(() => {
+        this.getSuggestions();
+      })
       .catch(err => {
         console.log(err);
       });
@@ -80,17 +83,31 @@ class Booklist extends Component {
 
   getSuggestions = () => {
     let bookTitle = this.state.bookData[this.state.currentIndex].title;
-    // console.log(bookTitle);
+    let url = `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
+    axios.get(url).then(res => {
+      let suggestions = res.data.Similar.Results;
+      this.setState({ suggestions: suggestions });
+      console.log(`This is the url: ${url}`);
+      console.log(bookTitle);
+      console.log(suggestions);
+    });
+  };
+  changeSuggestions = index => {
+    let bookTitle = this.state.bookData[index].title;
+    let url = `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
     axios
-      .get(
-        `https://tastedive.com/api/similar?q=${bookTitle}&k=353355-BookPals-PTT6XZKL`
-      )
+      .get(url)
       .then(res => {
         let suggestions = res.data.Similar.Results;
         this.setState({ suggestions: suggestions });
+        console.log(url);
+        console.log(bookTitle);
+        console.log(suggestions);
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
-
   render() {
     if (this.state.show) {
       return (
@@ -104,6 +121,7 @@ class Booklist extends Component {
             nextSlide={this.nextSlide}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
         </div>
       );
@@ -117,6 +135,7 @@ class Booklist extends Component {
             show={this.show}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
         </div>
       );
@@ -130,12 +149,10 @@ class Booklist extends Component {
             show={this.show}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
           <div className="Booklist-button-container">
-            <DrawerModal
-              suggestions={this.state.suggestions}
-              getSuggestions={this.getSuggestions}
-            ></DrawerModal>
+            <DrawerModal suggestions={this.state.suggestions}></DrawerModal>
           </div>
 
           {/* <div className="Booklist-book-container">
