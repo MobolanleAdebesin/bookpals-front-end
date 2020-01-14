@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import "./AddBook.css";
+import Button from "@material-ui/core/Button";
 
 class AddBook extends Component {
   constructor(props) {
@@ -131,16 +132,12 @@ class AddBook extends Component {
             />
           </div>
           <div className="Modal-button-container">
-            <button
-              onClick={this.submitBook}
-              type="submit"
-              className="btn btn-dark"
-            >
+            <Button variant="contained" type="submit" onClick={this.submitBook}>
               Submit
-            </button>
-            <button className="btn btn-dark" onClick={this.redirectToTarget}>
+            </Button>
+            <Button variant="contained" onClick={this.redirectToTarget}>
               Close
-            </button>
+            </Button>
           </div>
         </form>
       </div>

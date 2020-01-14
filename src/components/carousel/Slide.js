@@ -7,6 +7,7 @@ const Slide = ({ image }) => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "auto"
   };
+
   return <div className="slide" style={styles}></div>;
 };
 export default Slide;

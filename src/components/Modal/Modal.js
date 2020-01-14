@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Modal.css";
 import Axios from "axios";
+import Button from "@material-ui/core/Button";
 
 class Modal extends Component {
   constructor(props) {
@@ -131,16 +132,16 @@ class Modal extends Component {
             />
           </div>
           <div className="Modal-button-container">
-            <button className="btn btn-dark" onClick={this.handleHide}>
+            <Button variant="contained" onClick={this.handleHide}>
               Close
-            </button>
-            <button
-              onClick={this.submitEdits}
+            </Button>
+            <Button
+              variant="contained"
               type="submit"
-              className="btn btn-dark"
+              onClick={this.submitEdits}
             >
               Submit
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -3,7 +3,8 @@ import Slide from "./Slide.js";
 import LeftArrow from "./LeftArrow.js";
 import RightArrow from "./RightArrow.js";
 import "./Slider.css";
-
+import InfoModal from "../Modal/InfoModal";
+import Button from "@material-ui/core/Button";
 class Slider extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,6 @@ class Slider extends Component {
   }
   handleDelete = () => {
     let bookId = this.props.allBooks[this.state.currentIndex]._id;
-    console.log(bookId);
     this.props.delete(bookId);
   };
   handleShow = () => {
@@ -101,25 +101,24 @@ class Slider extends Component {
             <RightArrow nextSlide={this.nextSlide}></RightArrow>
           </div>
           <div className="slider-button-container">
-            <button
-              className="btn btn-dark slider-buttons"
+            <Button
+              className="Slider-button"
+              variant="contained"
               onClick={this.handleShow}
             >
               Edit
-            </button>
-            <button
-              className="btn btn-dark slider-buttons"
-              onClick={this.showInfo}
-            >
-              Info
-            </button>
-            <button
-              className=" btn btn-dark slider-buttons"
+            </Button>
+
+            <InfoModal
+              book={this.props.allBooks[this.state.currentIndex]}
+            ></InfoModal>
+            <Button
+              className="Slider-button"
+              variant="contained"
               onClick={this.handleDelete}
             >
               Delete
-            </button>
-            <button className="btn btn-dark slider-buttons">TasteKid</button>
+            </Button>
           </div>
         </div>
       );

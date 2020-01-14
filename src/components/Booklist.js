@@ -3,6 +3,7 @@ import "./Booklist.css";
 import axios from "axios";
 import Modal from "./Modal/Modal.js";
 import Slider from "./carousel/Slider.js";
+
 class Booklist extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,6 @@ class Booklist extends Component {
       .get("https://bola-api.herokuapp.com/books")
       .then(res => {
         let allBooks = res.data;
-        console.log(allBooks[0]);
         this.setState({ bookData: allBooks });
       })
       .catch(err => {
@@ -48,7 +48,6 @@ class Booklist extends Component {
 
   getIndex = index => {
     let book = this.state.bookData[index];
-    console.log(book._id);
     this.setState({
       title: `${book.title}`,
       desc: `${book.description}`,
@@ -77,7 +76,6 @@ class Booklist extends Component {
   };
 
   render() {
-    console.log(this.state.bookData);
     if (this.state.show) {
       return (
         <div className="booklist">
@@ -104,7 +102,8 @@ class Booklist extends Component {
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
           ></Slider>
-          <div className="bookInfo">
+
+          {/* <div className="bookInfo">
             <h4>Title: {this.state.title}</h4>
             <h5>Author: {this.state.auth}</h5>
             <h5 className="Booklist-description">
@@ -117,7 +116,7 @@ class Booklist extends Component {
             <button className="btn btn-dark" onClick={this.hideInfo}>
               Close
             </button>
-          </div>
+          </div> */}
         </div>
       );
     } else if (!this.state.show) {

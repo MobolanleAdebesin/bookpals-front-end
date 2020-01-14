@@ -1,18 +1,12 @@
 .slider {
   position: relative;
-  /* width: 700px; */
-  /* margin: 10rem auto; */
   overflow: hidden;
   white-space: nowrap;
   border-radius: 1rem;
   background-image: linear-gradient(to right top, #f26e92 0%, #fff46a 100%);
   box-shadow: 0 5px 2rem 0 rgba(0, 0, 0, 0.25);
-  /* transition: transform 300ms; */
 }
-.slider:hover {
-  transform: scale(1.1);
-  box-shadow: 0 5px 2rem 60px rgba(0, 0, 0, 0.25);
-}
+
 .slider-wrapper {
   position: relative;
   width: 100%;
@@ -27,10 +21,16 @@
 .slider-button-container {
   display: flex;
   justify-content: space-around;
+  margin: 2rem;
 }
 .slider-buttons {
   width: 6rem;
   margin-bottom: 3rem;
   border-radius: 12px;
   color: white;
+}
+
+.Slider-button {
+  height: 2.3rem;
+  padding: 1.5rem;
 }
