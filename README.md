@@ -1,14 +1,14 @@
 # BookPals 
 
 ## Purpose 
-The purpose of this project was to build out a front end website based on an API I created [here](https://github.com/MobolanleAdebesin/bookpals-back-end). 
+The purpose of this project was to build out a front end website based on an API I created [here](https://github.com/MobolanleAdebesin/bookpals-back-end). Bookpals allows users to add content about their favorite books and receive suggestions on other media (books, movies, music, and authors) that they might like based on the books added. 
 
 ## Examples 
 ![Homepage](https://github.com/MobolanleAdebesin/react-mern-project/blob/master/BookPals-HomePage.png)
 ![Add Books](https://github.com/MobolanleAdebesin/react-mern-project/blob/master/BookPals-AddBook.png)
 
 ## Deployed Site 
-The deployed version of this site can be found [here](https://stupefied-knuth-a58fed.netlify.com/)
+The deployed version of this site can be found [here](https://bookpals.netlify.com/)
 
 ## Features 
 UI Patterns
@@ -26,7 +26,9 @@ Using React, I created BookPals a single page application for book lovers and av
 - JavaScript/React
 - CSS 
 - Bootstrap
+- Material UI 
 - BookPals API 
+
 
 ## Use 
 - Fork and clone repository 
