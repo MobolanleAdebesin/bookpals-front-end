@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Slide from "./Slide.js";
 import LeftArrow from "./LeftArrow.js";
 import RightArrow from "./RightArrow.js";
