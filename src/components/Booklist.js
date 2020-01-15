@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import "./Booklist.css";
 import axios from "axios";
 import Modal from "./Modal/Modal.js";
+import DrawerModal from "./Modal/DrawerModal";
 import Slider from "./carousel/Slider.js";
+import Button from "@material-ui/core/Button";
+
 class Booklist extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,8 @@ class Booklist extends Component {
       isbn13: "",
       image: "",
       id: "",
-      info: "hide"
+      info: "hide",
+      suggestions: ""
     };
   }
   componentDidMount() {
@@ -29,6 +33,9 @@ class Booklist extends Component {
         let allBooks = res.data;
 
         this.setState({ bookData: allBooks });
+      })
+      .then(() => {
+        this.getSuggestions();
       })
       .catch(err => {
         console.log(err);
@@ -76,6 +83,29 @@ class Booklist extends Component {
     this.setState({ show: false });
   };
 
+  getSuggestions = () => {
+    let bookTitle = this.state.bookData[this.state.currentIndex].title;
+    let url = `https://tastedive.com/api/similar?verbose=1&q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
+    axios.get(url).then(res => {
+      console.log(res.data);
+      let suggestions = res.data.Similar.Results;
+      this.setState({ suggestions: suggestions });
+    });
+  };
+  changeSuggestions = index => {
+    let bookTitle = this.state.bookData[index].title;
+    let url = `https://tastedive.com/api/similar?verbose=1&q=${bookTitle}&k=353355-BookPals-PTT6XZKL`;
+    axios
+      .get(url)
+      .then(res => {
+        console.log(res.data);
+        let suggestions = res.data.Similar.Results;
+        this.setState({ suggestions: suggestions });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   render() {
     if (this.state.show) {
       return (
@@ -89,6 +119,7 @@ class Booklist extends Component {
             nextSlide={this.nextSlide}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
         </div>
       );
@@ -102,21 +133,8 @@ class Booklist extends Component {
             show={this.show}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
-          <div className="bookInfo">
-            <h4>Title: {this.state.title}</h4>
-            <h5>Author: {this.state.auth}</h5>
-            <h5 className="Booklist-description">
-              Description: <br />
-              {this.state.desc}
-            </h5>
-            <h5>Publisher: {this.state.pub}</h5>
-            <h5> isbn10: {this.state.isbn10}</h5>
-            <h5>isbn13: {this.state.isbn13}</h5>
-            <button className="btn btn-dark" onClick={this.hideInfo}>
-              Close
-            </button>
-          </div>
         </div>
       );
     } else if (!this.state.show) {
@@ -129,7 +147,11 @@ class Booklist extends Component {
             show={this.show}
             getIndex={this.getIndex}
             changeInfo={this.changeInfo}
+            changeSuggestions={this.changeSuggestions}
           ></Slider>
+          <div className="Booklist-button-container">
+            <DrawerModal suggestions={this.state.suggestions}></DrawerModal>
+          </div>
         </div>
       );
     }

@@ -4,7 +4,10 @@ import Slide from "./Slide.js";
 import LeftArrow from "./LeftArrow.js";
 import RightArrow from "./RightArrow.js";
 import "./Slider.css";
-
+import InfoModal from "../Modal/InfoModal";
+import Button from "@material-ui/core/Button";
+// import axios from "axios";
+// import DrawerModal from "../Modal/DrawerModal";
 class Slider extends Component {
   constructor(props) {
     super(props);
@@ -14,9 +17,9 @@ class Slider extends Component {
       info: "show"
     };
   }
+
   handleDelete = () => {
     let bookId = this.props.allBooks[this.state.currentIndex]._id;
-    console.log(bookId);
     this.props.delete(bookId);
   };
   handleShow = () => {
@@ -32,6 +35,7 @@ class Slider extends Component {
       currentIndex: prevState.currentIndex - 1,
       translateValue: prevState.translateValue + this.slideWidth()
     }));
+    this.props.changeSuggestions(this.state.currentIndex - 1);
   };
   nextSlide = () => {
     if (this.state.currentIndex === this.props.allBooks.length - 1) {
@@ -45,6 +49,7 @@ class Slider extends Component {
       currentIndex: prevState.currentIndex + 1,
       translateValue: prevState.translateValue - this.slideWidth()
     }));
+    this.props.changeSuggestions(this.state.currentIndex + 1);
   };
   slideWidth = () => {
     return document.querySelector(".slide").clientWidth;
@@ -52,20 +57,6 @@ class Slider extends Component {
   showInfo = () => {
     this.props.getIndex(this.state.currentIndex);
     this.props.changeInfo();
-  };
-  getSuggestions = () => {
-    // let bookTitle = this.props.allBooks[this.state.currentIndex].title;
-    // let splitTitle = bookTitle.split(" ");
-    // console.log(splitTitle[0]);
-    let bookIsbn = this.props.allBooks[this.state.currentIndex].isbns[0].isbn13;
-    console.log(bookIsbn);
-    axios
-      .get(
-        ` https://www.goodreads.com/book/isbn/${bookIsbn}?key=454RCMVosu5JrBhf6pCtxw`
-      )
-      .then(res => {
-        console.log(res);
-      });
   };
   render() {
     if (this.state.info === "hide") {
@@ -116,30 +107,24 @@ class Slider extends Component {
             <RightArrow nextSlide={this.nextSlide}></RightArrow>
           </div>
           <div className="slider-button-container">
-            <button
-              className="btn btn-dark slider-buttons"
+            <Button
+              className="Slider-button"
+              variant="contained"
               onClick={this.handleShow}
             >
               Edit
-            </button>
-            <button
-              className="btn btn-dark slider-buttons"
-              onClick={this.showInfo}
-            >
-              Info
-            </button>
-            <button
-              className=" btn btn-dark slider-buttons"
+            </Button>
+
+            <InfoModal
+              book={this.props.allBooks[this.state.currentIndex]}
+            ></InfoModal>
+            <Button
+              className="Slider-button"
+              variant="contained"
               onClick={this.handleDelete}
             >
               Delete
-            </button>
-            <button
-              className="btn btn-dark slider-buttons"
-              onClick={this.getSuggestions}
-            >
-              TasteKid
-            </button>
+            </Button>
           </div>
         </div>
       );
